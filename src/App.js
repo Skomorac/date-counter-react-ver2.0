@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function Counter() {
           ? `${count} days from today is ${calculateUpdatedDate()}`
           : `${Math.abs(count)} days ago was ${calculateUpdatedDate()}`}
       </p>
+      <Analytics />
     </div>
   );
 }
