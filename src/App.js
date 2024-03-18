@@ -32,34 +32,49 @@ function Counter() {
     setCount((currentCount) => currentCount - step);
   }
 
-  function plusStep() {
-    setStep((currentStep) => currentStep + 1);
-  }
+  const handleSliderChange = (event) => {
+    setStep(parseInt(event.target.value));
+  };
 
-  function minusStep() {
-    setStep((currentStep) => currentStep - 1);
+  function handleReset() {
+    setCount(0);
+    setStep(1);
   }
 
   return (
     <div>
-      <div className="counter-container">
-        <button onClick={minusStep}>-</button>
-        <p>Step: {step}</p>
-        <button onClick={plusStep}>+</button>
+      <div className="slider">
+        <input
+          type="range"
+          min="1"
+          max="10"
+          value={step}
+          onChange={handleSliderChange}
+        />
+        <span>Step: {step}</span>
       </div>
 
       <div className="counter-container">
         <button onClick={minusCount}>-</button>
-        <p>Count: {count}</p>
+        <input
+          type="text"
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))}
+        ></input>
         <button onClick={plusCount}>+</button>
       </div>
-      <p>
+      <p className="todayDate">
         {count === 0
           ? `Today is ${todayDate}`
           : count > 0
           ? `${count} days from today is ${calculateUpdatedDate()}`
           : `${Math.abs(count)} days ago was ${calculateUpdatedDate()}`}
       </p>
+      {count !== 0 || step !== 1 ? (
+        <div className="resetBtn">
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      ) : null}
       <Analytics />
     </div>
   );
